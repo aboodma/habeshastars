@@ -36,7 +36,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-  
+
    /**
     * Get all of the provider for the User
     *
@@ -67,4 +67,8 @@ class User extends Authenticatable
    {
        return $this->hasMany(Favorit::class);
    }
+   public function Reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

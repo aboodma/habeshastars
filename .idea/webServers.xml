@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="790328e1-3ce2-4826-8acb-3a203d83b7fa" name="neelstars" url="https://neelstars.com/">
+        <fileTransfer rootFolder="/www/wwwroot/neelstars.com" accessType="SFTP" host="207.154.238.194" port="22" sshConfigId="a38f00f7-265a-46c6-b16e-6976ab5ecd90" sshConfig="root@207.154.238.194:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
