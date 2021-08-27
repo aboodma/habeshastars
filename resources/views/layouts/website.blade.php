@@ -114,7 +114,7 @@
 
                 </li>
                 @endguest
-                
+
                 @auth
                 <li class="nav-item dropdown no-arrow no-caret mr-1 ">
                     <a class="btn btn-outline-secondary sec-btn p-1" style="word-break: keep-all;white-space: nowrap;" id="navbarDropdownAlerts"
@@ -234,24 +234,17 @@
                 <div class="footer-list">
 
                     <ul class="list">
-                        <li><a href="#">{{__('How we work')}} </a></li>
-                        <li><a href="#">{{__('About Us')}}</a></li>
-                        <li><a href="#">{{__('Contact Us')}}</a></li>
-                    </ul>
-                </div>
-                <div class="footer-list">
-
-                    <ul class="list">
-                        <li><a href="#">{{__('FAQ')}}</a></li>
-                        <li><a href="#">{{__('Privacy Policy')}}</a></li>
-                        <li><a href="#">{{__('Terms & Conditions')}}</a></li>
+                        @foreach(App\Page::where('locale',App::getLocale())->get() as $page)
+                        <li><a href="{{route('pages.show',$page->slug)}}">{{$page->title}} </a></li>
+                        @endforeach
 
                     </ul>
                 </div>
+
 
             </div>
             <div class="copyright">
-                <p>{{__('© Copyright 2022 Narabana. All Rights Reserved')}}
+                <p>{{__('© Copyright 2022 Neelstars. All Rights Reserved')}}
                 </p>
                 <ul class="social">
                     <li>

@@ -45,20 +45,20 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-         
-    
+
+
                 <div class="alert alert-danger" id="errors-warper" style="display: none">
                     <p id="errors">
-                       
+
                     </p>
                 </div>
-           
+
         </div>
         <div class="col-md-8">
             <legend>Be Our Partner</legend>
             <form method="POST" action="{{ route('provider_request') }}" id="be_our_partner" enctype="multipart/form-data">
                 @csrf
-               
+
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -174,15 +174,21 @@
                 <div class="progress" id="progress" >
                     <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
                   </div>
-                  
+
             </div>
         </div>
-        
+
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" id="btn_submit" class="btn btn-success rd-in btn-block">
                             {{ __('Send Request') }}
                         </button>
+                    </div>
+                </div>
+                <div class="from-group row mb-0" >
+                    <div class=" col-md-6 offset-md-4" >
+                        <p>{{__('By signing up you agree to')}} {{website_settings('website_name_'.App::getLocale())}} <a href="{{route('pages.show',App\Page::find(website_settings('provider_contract_'.App::getLocale()))->slug)}}"> {{__('terms of service  and Privacy Policy')}}</a></p>
+                        <p>{{__('Have an account?')}}<a href="{{route('login')}}">{{__('Login')}}</a></p>
                     </div>
                 </div>
             </form>
@@ -200,7 +206,7 @@
          {
 
             var progress_bar = $(".progress-bar");
- 
+
       $('form').ajaxForm({
         beforeSend: function() {
             var percentVal = '0%';
@@ -220,7 +226,7 @@
         complete: function(xhr) {
             $("#btn_submit").attr('disabled',false);
             console.log(xhr.responseText);
-            
+
         },
         success : function(data){
             // console.log(data);
@@ -232,13 +238,13 @@
             $("#errors").html(obj.message);
             // for (let index = 0; index < obj.errors; index++) {
             //     console.log(obj.errors[index]);
-                
+
             // }
         }
-       
-        
+
+
       });
-   }); 
+   });
  });
 </script>
 @endsection

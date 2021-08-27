@@ -22,7 +22,7 @@ use Config;
 use App;
 class HomeController extends Controller
 {
-  
+
     /**
      * Create a new controller instance.
      *
@@ -64,7 +64,7 @@ class HomeController extends Controller
      {
         return view('website.customer.dashboard');
      }
-   
+
      public function payment_info(Request $request)
      {
         return view('website.payment_info',compact('request'));
@@ -105,7 +105,7 @@ class HomeController extends Controller
         }
 
         $order_id =  Crypt::encrypt($order->id);
-        
+
         return redirect()->route('order_complete',$order_id);
      }
      public function order_complete($d_order_id)
@@ -127,6 +127,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         return view('home');
     }
 
@@ -149,14 +150,14 @@ class HomeController extends Controller
      if ($validated) {
       $slug = slugify($request->name);
       $random = Str::random(40);
-      $file = $request->file('avatar');     
+      $file = $request->file('avatar');
       $filename = $file->getClientOriginalName();
       $avatar = explode('.',$filename);
-      $avatar = $random.'.'.$file->extension(); 
-      
+      $avatar = $random.'.'.$file->extension();
+
     if ($fil= $file->move(public_path(), $avatar)) {
         // File is saved successfully
-    
+
       $user =  User::create([
          'name' => $request->name,
          'email' =>$request->email,
@@ -170,10 +171,10 @@ class HomeController extends Controller
       $provider = new Provider();
          $provider->slug = $slug;
          $random = Str::random(40);
-         $file = $request->file('video');     
+         $file = $request->file('video');
          $filename = $file->getClientOriginalName();
          $newName = explode('.',$filename);
-        
+
          $newName = $random.'.'.$file->getClientOriginalExtension();
          $fil= $file->move(public_path(), $newName);
          // FFMpeg::fromDisk('unoptimized_video')->open('ham_video/'.$newName)
@@ -184,7 +185,7 @@ class HomeController extends Controller
          $thumb = VideoThumbnail::createThumbnail(public_path($newName), public_path('uploads/thumbs/'), $random.'.jpg', 0, 540, 902);
          $provider->video_thumpnail = 'uploads/thumbs/'.$random.".jpg";
         $provider->user_id = $user->id;
-      
+
         $provider->about_me = $request->about_me;
         $provider->provider_type_id = $request->provider_type_id;
         $provider->country_id = $request->country_id;
@@ -196,7 +197,7 @@ class HomeController extends Controller
      }else{
         return 0;
      }
-       
+
     }
 
     public function request_submited(User $user)
@@ -209,13 +210,13 @@ class HomeController extends Controller
        $provider = Provider::find($request->provider_id);
        return view('parts.reviews',compact('provider'));
     }
-    
+
     public function search(Request $request)
     {
-       
+
        $categories = ProviderType::where('name', 'like', '%' .$request->q . '%')->get();
        $providers = User::where('user_type',1)->where('name', 'like', '%' .$request->q . '%')->get();
        return view('website.search',compact('categories','providers'));
     }
-    
+
 }

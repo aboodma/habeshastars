@@ -44,7 +44,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <legend>Login To Narabana</legend>
+            <legend>Login To {{website_settings('website_name_'.App::getLocale())}}</legend>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
@@ -94,8 +94,8 @@
                             {{ __('Login') }}
                         </button>
 
-                        
-                        
+
+
                     </div>
                 </div>
                 <div class="from-group row mb-0" >
@@ -105,8 +105,8 @@
                                 {{ __('Forgot Your Password?') }}
                             </a>
                         @endif </p>
-                        <p>By signing in you agree to narabana <a href=""> terms of service  and Privacy Policy</a></p>
-                        <p>Don’ don’t have an account? <a href="{{route('register')}}">Sign Up</a></p>
+                        <p>{{__('By signing up you agree to')}} {{website_settings('website_name_'.App::getLocale())}} <a href="{{route('pages.show',App\Page::find(website_settings('customer_contract_'.App::getLocale()))->slug)}}"> {{__('terms of service  and Privacy Policy')}}</a></p>
+                        <p>{{__('Have an account?')}}<a href="{{route('login')}}">{{__('Login')}}</a></p>
                     </div>
                 </div>
             </form>
