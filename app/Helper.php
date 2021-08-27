@@ -47,7 +47,7 @@ if (!function_exists('send_notify')) {
         'Content-Type: application/json',
 
     ];
-            
+
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
@@ -71,26 +71,33 @@ if (!function_exists('slugify')) {
     {
       // replace non letter or digits by divider
       $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
-    
+
       // transliterate
       $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-    
+
       // remove unwanted characters
       $text = preg_replace('~[^-\w]+~', '', $text);
-    
+
       // trim
       $text = trim($text, $divider);
-    
+
       // remove duplicate divider
       $text = preg_replace('~-+~', $divider, $text);
-    
+
       // lowercase
       $text = strtolower($text);
-    
+
       if (empty($text)) {
         return 'n-a';
       }
-    
+
       return $text;
     }
     }
+if(!function_exists('website_settings')){
+    function website_settings ($varname){
+       $settings =  App\WebsiteSetting::first();
+
+       return $settings[$varname];
+    }
+}

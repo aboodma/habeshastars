@@ -87,7 +87,7 @@ class ApiController extends Controller
                 'providerTypeName'=>auth()->user()->provider->ProviderType->name,
                 'country'=>auth()->user()->provider->country->name,
             );
-    
+
             return response()->json($data, $this->SuccessStatus);
         }else{
             $msg['errors'] = "No User Signed In";
@@ -145,9 +145,9 @@ class ApiController extends Controller
             return response()->json($this->msg, $RequirementField);
         }
         $thumb = VideoThumbnail::createThumbnail(public_path($newName), public_path('uploads/thumbs/'), $random.'.jpg', 0, 540, 902);
-       
+
         $order = Order::find($request->order_id);
-        
+
         $order_details = $order->details;
         $order_details->provider_message = $newName;
         $order_details->save();
@@ -164,6 +164,8 @@ class ApiController extends Controller
             $Customernotify->msg = "Order Status Updated";
             $Customernotify->type = 1;
             $Customernotify->save();
+        send_notify(auth()->user()->mobile_token , "Welcome" , "Hi! Now you can manage your orders and your payments from your phone let's start now " , $image = null);
+
         $wallet = new Wallet();
         $wallet->user_id = auth()->user()->id;
         $wallet->transaction_type = 0 ;
@@ -222,7 +224,7 @@ class ApiController extends Controller
         $file = $request->file('video');
         $filename = $file->getClientOriginalName();
         $newName = explode('.',$filename);
-        
+
         $newName = $random.'.'.$request->extension;
         $fil= $file->move(public_path(), $newName);
 
@@ -236,10 +238,10 @@ class ApiController extends Controller
        $provider->provider_type_id = $request->provider_type_id;
        $provider->country_id = $request->country_id;
        $provider->is_approved = false;
-       $provider->save(); 
+       $provider->save();
        send_notify($user->mobile_token , "Welcome" , "Hi! Now you can manage your orders and your payments from your phone let's start now " , $image = null);
-        
-       
+
+
     }
     }else {
         $this->msg['errors'] = "Login Informations Wrong";
@@ -310,7 +312,7 @@ class ApiController extends Controller
     public function DeleteService(Request $request)
     {
         $service = ProviderService::find($request->provider_service_id);
- 
+
         if ($service->delete()) {
             return response()->json(1,$this->SuccessStatus);
         }else {
@@ -320,7 +322,7 @@ class ApiController extends Controller
     public function update_profile(Request $request)
     {
         $slug = slugify($request->name);
-    
+
        $provider = auth()->user()->provider;
         $provider->slug = $slug;
        $provider->about_me = $request->about_me;
@@ -348,14 +350,14 @@ class ApiController extends Controller
            $user->name = $request->name;
            if ($request->has('avatar')) {
             $random = Str::random(40);
-            $file = $request->file('avatar');     
+            $file = $request->file('avatar');
             $filename = $file->getClientOriginalName();
             $avatar = explode('.',$filename);
-            $avatar = $random.'.'.$file->extension(); 
+            $avatar = $random.'.'.$file->extension();
             if($fil= $file->move(public_path(), $avatar)){
                 $user->avatar = $avatar;
-                
-            }            
+
+            }
            }
            if ($user->save()) {
             return response()->json(1,$this->SuccessStatus);
@@ -363,6 +365,6 @@ class ApiController extends Controller
             return response()->json(1,$this->ServerError);
             }
        }
-       
+
     }
 }

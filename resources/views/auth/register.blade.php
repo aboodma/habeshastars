@@ -120,8 +120,8 @@
                 </div>
                 <div class="from-group row mb-0" >
                     <div class=" col-md-6 offset-md-4" >
-                        <p>By signing up you agree to narabana <a href=""> terms of service  and Privacy Policy</a></p>
-                        <p>Have an account? <a href="{{route('login')}}">Login</a></p>
+                        <p>{{__('By signing up you agree to')}} {{website_settings('website_name_'.App::getLocale())}} <a href="{{route('pages.show',App\Page::find(website_settings('customer_contract_'.App::getLocale()))->slug)}}"> {{__('terms of service  and Privacy Policy')}}</a></p>
+                        <p>{{__('Have an account?')}}<a href="{{route('login')}}">{{__('Login')}}</a></p>
                     </div>
                 </div>
             </form>

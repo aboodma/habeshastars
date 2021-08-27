@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 })->name('welcome');
 
@@ -36,6 +37,7 @@ Route::get('featured','HomeController@featured')->name('featured');
 Route::post('reviews','HomeController@reviews')->name('reviews');
 Route::post('notify/read','NotificationController@read')->name('notify_read');
 Route::get('setLocale/{locale}','HomeController@changeLocale')->name('ChangeLocale');
+Route::get('page/{slug}','PageController@show')->name('pages.show');
 //ws routes
 Route::get('service_check','ProviderServiceController@service_check')->name('service_check');
 
@@ -83,7 +85,7 @@ Route::get('/home', 'HomeController@index')->name('home');
   Route::post('/provider/update/{user}/{user_type}','ProviderController@update')->name('provider_update');
   Route::delete('provider/delete/{user}/{provider}','ProviderController@destroy')->name('provider_delete');
 
-  // Service Model 
+  // Service Model
   Route::get('/service/list','ServiceController@index')->name('service_list');
   Route::get('/service/create','ServiceController@create')->name('service_create');
   Route::post('/service/store','ServiceController@store')->name('service_store');
@@ -100,17 +102,17 @@ Route::get('/home', 'HomeController@index')->name('home');
   Route::post('/categories/update/{providerType}','ProviderTypeController@update')->name('categories_update');
   Route::delete('/categories/delete/{providerType}','ProviderTypeController@destroy')->name('categories_delete');
 
-  // Orders 
+  // Orders
   Route::get('orders','OrderController@index')->name('orders');
   Route::get('orders/show/{order}','OrderController@show')->name('orders.show');
 
-  //Payout Requests 
+  //Payout Requests
   Route::get('payouts','PayoutRequestController@index')->name('payouts');
   Route::get('payouts/show/{payoutRequest}','PayoutRequestController@show')->name('payouts.show');
   Route::get('payouts/accept/{payoutRequest}','PayoutRequestController@acceptRequest')->name('payouts.accept');
   Route::post('payouts/reject/','PayoutRequestController@reject')->name('payouts.reject');
   Route::post('payouts/paid/','PayoutRequestController@paid')->name('payouts.paid');
-  // Settings 
+  // Settings
   Route::get('/Languages','LanguageController@index')->name('language.index');
   Route::get('/Languages/translate/{language}','LanguageController@translate')->name('language.translate');
   Route::post('/Languages/update/{language}','LanguageController@update')->name('language.update');
@@ -123,12 +125,22 @@ Route::get('/home', 'HomeController@index')->name('home');
   Route::get('/HomePage/banners/create','HomePageBannerController@create')->name('homepage.banners.create');
   Route::post('/HomePage/banners/store','HomePageBannerController@store')->name('homepage.banners.store');
   Route::delete('/HomePage/banners/destroy/{HomePageBanner}','HomePageBannerController@destroy')->name('homepage.banners.destroy');
-  
+
   Route::get('/HomePage/categories','HomePageProviderTypeController@index')->name('homePage.categories');
   Route::post('/HomePage/category/add','HomePageProviderTypeController@store')->name('homePage.categories.store');
   Route::delete('/HomePage/category/destroy/{homePageProviderType}','HomePageProviderTypeController@destroy')->name('homePage.categories.destroy');
+
+  Route::get('/WebsiteSettings','WebsiteSettingController@index')->name('website_settings');
+
+  Route::get('/Pages','PageController@index')->name('pages.index');
+  Route::get('/Pages/create','PageController@create')->name('pages.create');
+  Route::post('/Pages/store','PageController@store')->name('pages.store');
+  Route::get('/Pages/edit/{page}','PageController@edit')->name('pages.edit');
+  Route::post('/Pages/update/{page}','PageController@update')->name('pages.update');
+  Route::delete('/Pages/delete/{page}','PageController@destroy')->name('pages.delete');
+
 });
- 
+
 //Provider Routes
 Route::group(['prefix'=>'provider','as'=>'provider.','middleware'=>'provider'], function(){
   Route::get('/dashboard','ProviderController@dashboard')->name('dashboard');
@@ -153,4 +165,3 @@ Route::group(['prefix'=>'provider','as'=>'provider.','middleware'=>'provider'], 
   Route::delete('service/delete/{providerService}','ProviderServiceController@destroy')->name('delete_service');
 });
 
- 
