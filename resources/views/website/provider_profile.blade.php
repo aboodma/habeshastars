@@ -235,7 +235,7 @@
                 filter: brightness(100);
                 float: right;
                 right: 7%;
-                " src="{{asset('images/logo.png')}}" alt="">
+                " src="{{asset(website_settings('website_logo_en'))}}" alt="">
 
                 <video id="v-{{$provider->id}}" style="width: 100%" loop preload="false" autoplay="true" tabindex="0">
 
@@ -353,7 +353,7 @@
                             <div class="form-group bg-light rounded p-1 " id="description_row" style="display: none">
 
 
-                        
+
                                 <p id="description" class=""></p>
 
 
