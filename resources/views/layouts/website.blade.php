@@ -6,8 +6,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Gurdeep singh osahan">
-    <meta name="author" content="Gurdeep singh osahan">
+    <meta name="description" content="a platform that aims to provide a unique service in this sense, such as video consultancy service from consultants or services">
+
     <title>{{__('website_title')}} @yield('title')</title>
 
     <link rel="icon" type="image/png" href="images/favicon.ico">
@@ -27,7 +27,11 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    @if(app()->getLocale() == "ar")
+    <link href="{{asset('css/style-ar.css')}}" rel="stylesheet">
 
+
+    @endif
 
 
     @yield('style')
@@ -46,21 +50,22 @@
     <nav class="navbar navbar-expand-lg navbar-light topbar  shadow-sm bg-white osahan-nav-top px-1  ">
         <div class="container">
 
-            <a class="navbar-brand d-none d-lg-block" href="{{route('welcome')}}"><img src="{{asset('images/logo.png')}}" alt=""></a>
+            <a class="navbar-brand d-none d-lg-block" href="{{route('welcome')}}">
+                <img src="{{asset(website_settings('website_logo'))}}" style="height: 30px;" alt=""></a>
             <a class="navbar-brand d-lg-none  m-auto  pb-3" href="{{route('welcome')}}">
-                <img style="height: 30px;" src="{{asset('images/logo.png')}}" alt=""></a>
+                <img style="height: 30px;" src="{{asset(website_settings('website_logo'))}}" alt=""></a>
 
             <form action="{{route('search')}}" method="GET" class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group">
-                    <input type="text" style="border-top-left-radius:20px;border-bottom-left-radius:20px;padding:20px"
+                    <input type="text" style="/*! border-top-left-radius:20px; *//*! border-bottom-left-radius:20px; */padding:21px;border-radius: 20px;padding-right: 6.5rem;"
                         class="form-control bg-white small"name="q" placeholder="{{__('Find Services...')}}" aria-label="Search"
                         aria-describedby="basic-addon2">
-                    <div class="input-group-append">
+
                         <button class="btn btn-dark"
-                            style="border-top-right-radius:20px;border-bottom-right-radius:20px;" type="submit">
+                        style="/*! border-top-right-radius:20px; *//*! border-bottom-right-radius:20px; */position: absolute;right: 0px;/*! top: 0px; *//*! bottom: 0px; */border-radius: 20px;margin: 5px;background-color: #d47fa6;border-color: #d47fa6;" type="submit">
                             <i class="fa fa-search fa-sm"></i>
                         </button>
-                    </div>
+
                 </div>
             </form>
 
@@ -222,7 +227,7 @@
                 <div class="footer-list">
                     <div class="logo ml-5">
                         <a href="{{route('welcome')}}">
-                            <img style="width: 10rem" src="{{asset('images/logo.png')}}">
+                            <img style="width: 10rem" src="{{asset(website_settings('website_logo'))}}">
                         </a>
                     </div>
                 </div>
@@ -239,7 +244,7 @@
 
             </div>
             <div class="copyright">
-                <p>{{__('© Copyright 2022 Neelstars. All Rights Reserved')}}
+                <p>{{__('© Copyright 2022 '.website_settings('website_name').'. All Rights Reserved')}}
                 </p>
                 <ul class="social">
                     <li>

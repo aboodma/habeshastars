@@ -6,7 +6,7 @@
                     aria-controls="collapseExample" style="font-weight: 600
          " class=" text-white">
                     <p class="float-left m-0" style="font-size: larger"><b> <i class="fa fa-bars"></i> {{__('Menu')}}</b> </p>
-
+                    
                 </a>
 
             </div>

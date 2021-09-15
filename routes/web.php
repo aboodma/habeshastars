@@ -133,6 +133,7 @@ Route::get('/home', 'HomeController@index')->name('home');
   Route::delete('/HomePage/category/destroy/{homePageProviderType}','HomePageProviderTypeController@destroy')->name('homePage.categories.destroy');
 
   Route::get('/WebsiteSettings','WebsiteSettingController@index')->name('website_settings');
+  Route::post('/WebsiteSettings/update','WebsiteSettingController@store')->name('website_settings.update');
 
   Route::get('/Pages','PageController@index')->name('pages.index');
   Route::get('/Pages/create','PageController@create')->name('pages.create');

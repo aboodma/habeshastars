@@ -34,7 +34,7 @@ class CustomerController extends Controller
     $user = auth()->user();
     $orders = $user->orders->where('status',2);
     return view('website.customer.videos',compact('orders'));
-
+   
    }
 
    public function UpdatePrfoile(Request $request)
