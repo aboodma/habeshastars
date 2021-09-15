@@ -54,7 +54,7 @@ select {
   background-position-y: 5px;
   border: 1px solid #dfdfdf;
   border-radius: 2px;
-
+  
   padding: 1rem;
   padding-right: 2rem;
 }
@@ -83,7 +83,7 @@ select {
                                 <legend class="mb-0"><b>{{__('Payment Inforamtions')}}</b></legend>
                             <small><b>{{__('Your card will not get charged until the video is complete')}} </b><br></small>
                             </div>
-
+                            
                             <div class="form-group">
                                 <label>
                                     {{__('Card Holder Name')}}
@@ -96,7 +96,7 @@ select {
                                           </span>
                                     </div>
                                 </div>
-
+                               
                             </div>
                             <div class="form-group">
                                 <label for="">{{__('Card Number')}}</label>
@@ -108,7 +108,7 @@ select {
                                         </span>
                                   </div>
                                 </div>
-
+                               
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-3">
@@ -128,7 +128,7 @@ select {
                                                 </span>
                                           </div>
                                         </div>
-
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-3 offset-md-1">
@@ -180,11 +180,11 @@ select {
                                     <h5><b>{{__('Total')}}</b></h5>
                                     <h5><b>{{$request->price + 10}} USD</b></h5>
                                 </div>
-
+                            
                               <br>
                               <div class="form-group">
                                   <button class="btn btn-success  btn-lg btn-block" type="submit">{{__('Pay')}}</button>
-                                  <p style="font-size: smaller " class="pt-2">{{__('By Booking up you agree to '.website_settings('website_name'))}} <a style="text-decoration: underline;color:#000" href="{{route('pages.show',App\Page::find(website_settings('customer_contract'))->slug)}}"><b>{{__('terms of service and Privacy Policy')}}</b></a></p>
+                                  <p style="font-size: smaller " class="pt-2">{{__('By Booking up you agree to Narabana')}} <a style="text-decoration: underline;color:#000" href=""><b>{{__('terms of service and Privacy Policy')}}</b></a></p>
                                     <img src="{{asset('images/bank.png')}}" alt="">
                                 </div>
                         </form>
@@ -195,9 +195,9 @@ select {
 
                 <img class="http://localhost/celebrate/narabana/public/images/video.png" src="" width="250" alt="">
             </div>
-
+           
         </div>
-
+     
     </div>
 
 
@@ -234,7 +234,7 @@ select {
 
             });
 
-
+           
 
         })
         //   freelance-slider

@@ -35,7 +35,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-
+//        return $request->all();
        $reservation = new Reservation();
        $reservation->user_id = auth()->user()->id;
        $reservation->provider_id = $request->provider_id;
