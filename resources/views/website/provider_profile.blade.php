@@ -19,15 +19,25 @@
         </div>
         <div class="row d-inline d-none d-sm-block d-md-none">
             <div class="col-md-12">
-               
+
                 <h2 class="">{{$provider->user->name}} <i class="fas fa-check-circle text-primary" style="font-size: large;"></i>
+                    @auth
+                        <button type="button" class="btn btn-outline-danger pink-btn btn-borderless " data-toggle="modal" data-target="#reservationModal">
+                            Make Reservation
+                        </button>
+                    @endauth
+                    @guest
+                        <a type="button" class="btn btn-outline-danger pink-btn btn-borderless " href="{{route('login')}}" >
+                            Make Reservation
+                        </a>
+                    @endguest
                 </h2>
             </div>
         </div>
-        
+
         <div class="row">
-           
-           
+
+
             <div class="col-md-3">
                 <img style="position: absolute;
                 width: 30%;
@@ -39,9 +49,9 @@
                 " src="{{asset('images/logo.png')}}" alt="">
 
                 <video
-               
+
                 id="v-{{$provider->id}}" style="width: 100%" loop preload="false" autoplay="true"   tabindex="0">
-                    
+
                     <source src="{{asset($provider->video)}}" type="video/mp4">
                 </video>
                 <span id="play-{{$provider->id}}" onclick="playVideo('{{$provider->id}}')" class="fa fa-play play-btn" ></span>
@@ -51,26 +61,36 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="d-none d-lg-block">{{$provider->user->name}} <i class="fas fa-check-circle text-primary" style="font-size: large;"></i>
+                            @auth
+                                <button type="button" class="btn btn-outline-danger pink-btn btn-borderless " data-toggle="modal" data-target="#reservationModal">
+                                    Make Reservation
+                                </button>
+                            @endauth
+                            @guest
+                                <a type="button" class="btn btn-outline-danger pink-btn btn-borderless " href="{{route('login')}}" >
+                                    Make Reservation
+                                </a>
+                            @endguest
                         </h2>
                         <span class="pb-2 mb-2">{{_ti($provider->Country->name)}} / {{_ti($provider->ProviderType->name)}}</span>
                         <p class="pt-2">{{$provider->about_me}}</p>
                         <p style="font-weight: bold;color: #ba6089;"><i class="fa fa-clock-o" style="color: #ba6089;font-size: initial;"></i> {{__('Replies in 5 days')}}</p>
                         @if($provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->count() != 0)
-                        <p> <i class="fa fa-star @if($provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->first()->rate->rate >= 1) text-warning @endif"></i> 
+                        <p> <i class="fa fa-star @if($provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->first()->rate->rate >= 1) text-warning @endif"></i>
                                 <i class="fa fa-star @if($provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->first()->rate->rate >= 2) text-warning @endif"></i>
-                                <i class="fa fa-star @if($provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->first()->rate->rate >= 3) text-warning @endif"></i> 
+                                <i class="fa fa-star @if($provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->first()->rate->rate >= 3) text-warning @endif"></i>
                                 <i class="fa fa-star @if($provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->first()->rate->rate >= 4) text-warning @endif"></i>
                                 <i class="fa fa-star @if($provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->first()->rate->rate == 5) text-warning @endif"></i>
-                                / <span class="font-weight-bold">{{$provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->first()->rate->rate}} {{__('Star')}} </span>    
+                                / <span class="font-weight-bold">{{$provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->first()->rate->rate}} {{__('Star')}} </span>
                             </p>
                         <p class="font-weight-bold" style="text-decoration:underline; font-size:14px; color:black"><a style="color:black" href="#" data-toggle="modal" data-target="#exampleModal">{{__('Show More Reviews')}} ({{$provider->orders->whereIn('id',\App\OrderReview::pluck('order_id'))->count()}})</a></p>
-                            @else 
-                            <p> <i class="fa fa-star "></i> 
-                                <i class="fa fa-star "></i>
-                                <i class="fa fa-star "></i> 
+                            @else
+                            <p> <i class="fa fa-star "></i>
                                 <i class="fa fa-star "></i>
                                 <i class="fa fa-star "></i>
-                                / <span class="font-weight-bold">{{__('0 Star')}} </span>    
+                                <i class="fa fa-star "></i>
+                                <i class="fa fa-star "></i>
+                                / <span class="font-weight-bold">{{__('0 Star')}} </span>
                             </p>
                         <p class="font-weight-bold" style="text-decoration:underline; font-size:14px; color:black"><a style="color:black" href="#">{{__('Show More Reviews (0)')}}</a></p>
 
@@ -123,12 +143,12 @@
                             </div>
                             <br>
                             <div class="form-group bg-light rounded p-1 "id="description_row" style="display: none">
-                           
-                    
+
+
                                     <h5>{{__('Service Descrption')}}</h5>
                                     <p id="description" class=""></p>
-                                
-                     
+
+
                             </div>
                             <div class="form-group mt-2">
                                 <button type="submit"
@@ -138,7 +158,7 @@
                         </form>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         @if($provider->orders->count() != 0)
@@ -147,12 +167,12 @@
                 <h2>{{$provider->user->name}} {{__('Videos')}}</h2>
                 <div class="row freelance-slider">
                     @foreach ($provider->orders->where('status',2) as $order)
-                    @if ($order->service->is_video) 
+                    @if ($order->service->is_video)
                     <div class="col">
-                   
+
                             <div class="freelancer">
                                 <video id="v-{{$order->id}}" style="width: 100%"
-                                        @php 
+                                        @php
                                         $file_name= explode('.',$order->details->provider_message);
                                         $poster_path = public_path("uploads/thumbs/").$file_name[0].".jpg";
                                         @endphp
@@ -182,7 +202,7 @@
                                         transition: opacity,font-size .4s;
                                         color: #fff;"></span>
                             </div>
-                       
+
                     </div>
                     @endif
                     @endforeach
@@ -194,29 +214,29 @@
             <div class="container">
                 <h1>{{_ti($provider->ProviderType->name)}}</h1>
                 <div class="row freelance-slider">
-                    @foreach (\App\Provider::where('provider_type_id',$provider->ProviderType->id)->get()->take(10) as $provider)
+                    @foreach (\App\Provider::where('provider_type_id',$provider->ProviderType->id)->get()->take(10) as $providers)
                     <div class="col">
-                        <a href="{{route('provider_profile',$provider->slug)}}">
+                        <a href="{{route('provider_profile',$providers->slug)}}">
                             <div class="freelancer">
                                 <div>
                                     <div class="top-right p-1 text-center">
                                         <span class="fa fa-heart-o"></span>
                                     </div>
-                                    @if($provider->services()->exists())
+                                    @if($providers->services()->exists())
                                     <div class="bottom-left p-1">
-                                        <span>{{$provider->services->first()->price}} USD</span> <i class="fa fa-video-camera"></i>
-            
+                                        <span>{{$providers->services->first()->price}} USD</span> <i class="fa fa-video-camera"></i>
+
                                     </div>
                                     @endif
-                                    <img src="{{asset($provider->user->avatar)}}">
+                                    <img src="{{asset($providers->user->avatar)}}">
                                 </div>
-        
+
                                 <div class="freelancer-footer">
-        
-                                    <h5 style="padding: 0px;">{{$provider->user->name}}
-                                        <span style="font-size: 12px">{{ucfirst(strtolower(_ti($provider->ProviderType->name)))}}
+
+                                    <h5 style="padding: 0px;">{{$providers->user->name}}
+                                        <span style="font-size: 12px">{{ucfirst(strtolower(_ti($providers->ProviderType->name)))}}
                                             <br>
-                                            {{ucfirst(strtolower(_ti($provider->Country->name)))}}</span>
+                                            {{ucfirst(strtolower(_ti($providers->Country->name)))}}</span>
                                     </h5>
                                 </div>
                             </div>
@@ -238,12 +258,59 @@
               </button>
             </div>
             <div class="modal-body border-0" id="modal_body">
-              
+
             </div>
-            
+
           </div>
         </div>
       </div>
+    <div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="reservationModalLabel">{{__('Ask For Reservation')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body border-0" >
+                    <div class="form-horizontal">
+                        @auth
+                            @if(auth()->user()->is_premium)
+                                <form action="{{route('reservation_store')}}" method="post" class="form">
+                                    @csrf
+                                    <input type="hidden" name="provider_id" value="{{$provider->id}}">
+                                    <div class="form-group">
+                                        <label for="">Date</label>
+                                        <input type="date" class="datepicker form-control" value="{{date('Y-m-d', strtotime("+1 week"))}}" min="{{date('Y-m-d', strtotime("+1 week"))}}" name="date" id="date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Phone <small>example : +90 000 000 0000</small></label>
+                                        <input id="phone" name="phone" placeholder="+90 000 000 0000" type="tel" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Reservation Reason <small>(Please Explane The Reason in 60 Charecter)</small> </label>
+                                        <input maxlength="60" type="text" class="form-control" name="reservation_reason" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Notes</label>
+                                        <textarea name="msg" id="" class="form-control" cols="30" rows="10"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-outline-primary form-control">Make Reservation</button>
+                                    </div>
+                                </form>
+                            @else
+                                <p>Sorry , This Service Avalibale Just for Premium Account Start Your Premium From <a
+                                        href="{{route('customer.premium_form')}}">Here</a> </p>
+                            @endif
+                        @endauth
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
     @endsection
     @section('script')
     <script>
@@ -261,7 +328,7 @@
             });
         })
         $(document).ready(function () {
-           
+
             checkers();
             $('.freelance-slider').slick({
                 infinite: true,
@@ -297,7 +364,7 @@
     }
                 ]
             });
-            
+
             function checkers() {
                 $("#description_row").hide();
                 $.ajax({
@@ -331,10 +398,10 @@
             });
 
         });
-     
+
         //   freelance-slider
         function playVideo(id) {
-            var vid =$("#v-"+id); 
+            var vid =$("#v-"+id);
             var play_i =$("#play-"+id);
             var pause_i =$("#pause-"+id);
             play_i.hide();
@@ -343,7 +410,7 @@
             $("#v-"+id).get(0).play();
                 }
         function pauseVideo(id) {
-            var vid =$("#v-"+id); 
+            var vid =$("#v-"+id);
             var play_i =$("#play-"+id);
             var pause_i =$("#pause-"+id);
             play_i.show();

@@ -40,7 +40,7 @@ Route::get('setLocale/{locale}','HomeController@changeLocale')->name('ChangeLoca
 Route::get('page/{slug}','PageController@show')->name('pages.show');
 //ws routes
 Route::get('service_check','ProviderServiceController@service_check')->name('service_check');
-
+Route::post('reservation/store',"ReservationController@store")->name('reservation_store')->middleware('auth');
 //customer routes
 Route::group(['prefix'=>'customer','as'=>'customer.','middleware'=>'customer'], function(){
 Route::get('profile','CustomerController@profile')->name('profile');
@@ -52,7 +52,9 @@ Route::post('rate','OrderReviewController@rateOrder')->name('rate_order');
 Route::get('myFavoritList','FavoritController@favorits')->name('myFavoritList');
 Route::post('addToFavorit','FavoritController@addToFavorit')->name('addToFavorit');
 Route::post('removeFromFavorit','FavoritController@removeFromFavorit')->name('removeFromFavorit');
-
+Route::get('reservations','ReservationController@customer_index')->name('reservations');
+Route::get('premium','CustomerController@premium_form')->name('premium_form');
+Route::post('premium','CustomerController@premium_activate')->name('premium_activate');
 });
 
 //Admin Routes
@@ -143,6 +145,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Provider Routes
 Route::group(['prefix'=>'provider','as'=>'provider.','middleware'=>'provider'], function(){
+    Route::get('reservations','ReservationController@provider_index')->name('reservations');
   Route::get('/dashboard','ProviderController@dashboard')->name('dashboard');
   Route::get('/profile','ProviderController@profile')->name('profile');
   Route::get('/services','ProviderController@services')->name('services');

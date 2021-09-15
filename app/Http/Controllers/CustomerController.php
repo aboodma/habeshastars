@@ -7,6 +7,7 @@ use App\Order;
 use Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
@@ -33,7 +34,7 @@ class CustomerController extends Controller
     $user = auth()->user();
     $orders = $user->orders->where('status',2);
     return view('website.customer.videos',compact('orders'));
-   
+
    }
 
    public function UpdatePrfoile(Request $request)
@@ -45,4 +46,16 @@ class CustomerController extends Controller
        }
        $user->save();
    }
+    public function premium_form()
+    {
+        return view('website.customer.premium');
+    }
+    public function premium_activate(Request $request)
+    {
+        $user = auth()->user();
+        $user->is_premium = true;
+        $user->premium_start_date = Carbon::now()->toDateTimeString();
+        $user->save();
+        return redirect()->route('customer_dashboard');
+    }
 }
